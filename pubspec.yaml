@@ -33,6 +33,8 @@ flutter:
     - assets/estat_alumnes.json
     - assets/estat_temes.json
     - assets/mapa.png
+    - assets/Logo_APP.png
+    - assets/posits_alumnes.png
 
 
     

@@ -17,7 +17,7 @@ class _AlumnoScreenState extends State<AlumnoScreen> {
     super.initState();
 
     // Configurem un temporitzador per redirigir a la pantalla map_screen_alumne.dart
-    Timer(Duration(seconds: 5), () {
+    Timer(Duration(seconds: 2), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => MapScreenAlumno()),
@@ -45,19 +45,6 @@ class _AlumnoScreenState extends State<AlumnoScreen> {
                 fontWeight: FontWeight.bold,
                 color: Colors.green[800],
               ),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context); // Tornar a la pantalla anterior
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              child: Text('Tornar'),
             ),
           ],
         ),

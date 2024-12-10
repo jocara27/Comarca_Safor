@@ -9,11 +9,29 @@ class MapScreenAlumno extends StatelessWidget {
         backgroundColor: Colors.green,
       ),
       backgroundColor: Color(0xFFF7F3DF), // Color de fons
-      body: Center(
-        child: Image.asset(
-          'assets/Mapa.png', // Ruta de la imatge dins de la carpeta assets
-          fit: BoxFit.cover, // Ajusta la imatge dins de l'espai disponible
-        ),
+      body: Stack(
+        children: [
+          // Imatge dels pos-its (ajustable amb Positioned)
+          Positioned(
+            left: -300, // Distància des de la part esquerra
+            top: 10, // Distància des de la part superior
+            child: Image.asset(
+              'assets/posits_alumnes.png',
+              width: 1000, // Amplada general dels pos-its
+              height: 1000, // Alçada general dels pos-its
+            ),
+          ),
+          // Imatge del mapa (ajustable amb Positioned)
+          Positioned(
+            left: 150, // Distància des de la part esquerra
+            top: -50, // Distància des de la part superior
+            child: Image.asset(
+              'assets/Mapa.png',
+              width: 1150, // Amplada general del mapa
+              height: 1150, // Alçada general del mapa
+            ),
+          ),
+        ],
       ),
     );
   }
