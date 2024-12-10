@@ -9,12 +9,14 @@ class ProfessorScreen extends StatefulWidget {
 
 class _ProfessorScreenState extends State<ProfessorScreen> {
   late Map<String, dynamic> _users;
+  late Map<String, dynamic> _estatAlumnes;
   late List<dynamic> _students;
 
   @override
   void initState() {
     super.initState();
     _loadUsers();
+    _loadEstatAlumnes();
   }
 
   Future<void> _loadUsers() async {
@@ -33,23 +35,60 @@ class _ProfessorScreenState extends State<ProfessorScreen> {
     }
   }
 
+  Future<void> _loadEstatAlumnes() async {
+    try {
+      final file = File('assets/estat_alumnes.json');
+      final String response = await file.readAsString();
+      setState(() {
+        _estatAlumnes = json.decode(response);
+      });
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+            content: Text('Error carregant el fitxer d\'estat d\'alumnes')),
+      );
+    }
+  }
+
   Future<void> _saveUsers() async {
     try {
       final file = File('assets/users.json');
       await file.writeAsString(json.encode(_users));
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: No s\'ha pogut guardar el fitxer')),
+        SnackBar(
+            content:
+                Text('Error: No s\'ha pogut guardar el fitxer d\'usuaris')),
+      );
+    }
+  }
+
+  Future<void> _saveEstatAlumnes() async {
+    try {
+      final file = File('assets/estat_alumnes.json');
+      await file.writeAsString(json.encode(_estatAlumnes));
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+            content: Text(
+                'Error: No s\'ha pogut guardar el fitxer d\'estat d\'alumnes')),
       );
     }
   }
 
   void _deleteStudent(int index) {
     setState(() {
+      String studentName = _students[index]['name'];
       _users['users'].remove(_students[index]);
       _students.removeAt(index);
+
+      // Remove student from estat_alumnes.json
+      _estatAlumnes.forEach((key, value) {
+        value.remove(studentName);
+      });
     });
     _saveUsers();
+    _saveEstatAlumnes();
   }
 
   void _addStudent(String name) {
@@ -57,8 +96,14 @@ class _ProfessorScreenState extends State<ProfessorScreen> {
       final newStudent = {"role": "alumno", "name": name, "password": "4567"};
       _users['users'].add(newStudent);
       _students.add(newStudent);
+
+      // Add student to estat_alumnes.json
+      _estatAlumnes.forEach((key, value) {
+        value[name] = "No entregat";
+      });
     });
     _saveUsers();
+    _saveEstatAlumnes();
   }
 
   void _showAddStudentDialog() {
