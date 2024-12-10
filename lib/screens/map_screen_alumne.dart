@@ -3,37 +3,86 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 class MapScreenAlumno extends StatefulWidget {
+  final String alumne; // Nom de l'alumne
+
+  MapScreenAlumno({required this.alumne});
+
   @override
   _MapScreenAlumnoState createState() => _MapScreenAlumnoState();
 }
 
 class _MapScreenAlumnoState extends State<MapScreenAlumno> {
   late Map<String, dynamic> estatTemes;
-  String? selectedCartellText; // Text del cartell seleccionat
+  late Map<String, dynamic> estatAlumnes;
+  String? imageToShow; // Imatge de detall del tema seleccionat
+  String? bloqueigImatge; // Imatge de bloqueig/desbloqueig
 
   @override
   void initState() {
     super.initState();
     _loadEstatTemes();
+    _loadEstatAlumnes();
   }
 
   Future<void> _loadEstatTemes() async {
     try {
-      final file = File('assets/estat_temes.json'); // Ruta del fitxer
+      final file = File('assets/estat_temes.json');
       final String response = await file.readAsString();
       setState(() {
         estatTemes = json.decode(response);
       });
     } catch (e) {
       print('Error carregant estat_temes.json: $e');
-      estatTemes = {}; // Si hi ha error, inicialitzem com un map buit
+      estatTemes = {};
     }
+  }
+
+  Future<void> _loadEstatAlumnes() async {
+    try {
+      final file = File('assets/estat_alumnes.json');
+      final String response = await file.readAsString();
+      setState(() {
+        estatAlumnes = json.decode(response);
+      });
+    } catch (e) {
+      print('Error carregant estat_alumnes.json: $e');
+      estatAlumnes = {};
+    }
+  }
+
+  void _showImage(String tema) {
+    final String estat = estatAlumnes[tema]?[widget.alumne] ?? "No entregat";
+
+    // Assignar la imatge segons l'estat
+    setState(() {
+      switch (estat) {
+        case "Entregat a temps":
+          imageToShow = "assets/Imatge_Entregat$tema.png";
+          break;
+        case "Entregat tard":
+          imageToShow = "assets/Imatge_Entregat_Tard$tema.png";
+          break;
+        default:
+          imageToShow = "assets/Imatge_No_Entregat$tema.png";
+      }
+
+      // Imatge de bloqueig o desbloqueig
+      bloqueigImatge = (estat == "No entregat")
+          ? "assets/Bloquejat_$tema.png"
+          : "assets/Desbloquejat_$tema.png";
+    });
+  }
+
+  void _hideImage() {
+    setState(() {
+      imageToShow = null; // Amagar la imatge principal
+      bloqueigImatge = null; // Amagar la imatge de bloqueig/desbloqueig
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    // Si els temes no estan carregats encara, mostra un carregador
-    if (estatTemes.isEmpty) {
+    if (estatTemes.isEmpty || estatAlumnes.isEmpty) {
       return Scaffold(
         appBar: AppBar(
           title: Text("Mapa de l'Alumne"),
@@ -44,21 +93,15 @@ class _MapScreenAlumnoState extends State<MapScreenAlumno> {
       );
     }
 
-    // Crear llista de Positioned per a cartells
     List<Widget> positionedCartells = [];
 
-    // Cartell 1
     if (estatTemes["Tema 1"] == false) {
       positionedCartells.add(
         Positioned(
           left: 730.0,
           top: 440.0,
           child: GestureDetector(
-            onTap: () {
-              setState(() {
-                selectedCartellText = "Hola soc cartell 1";
-              });
-            },
+            onTap: () => _showImage("Tema 1"), // Mostra la imatge
             child: Image.asset(
               'assets/cartell1.png',
               width: 75.0,
@@ -69,18 +112,13 @@ class _MapScreenAlumnoState extends State<MapScreenAlumno> {
       );
     }
 
-    // Cartell 2
     if (estatTemes["Tema 2"] == false) {
       positionedCartells.add(
         Positioned(
           left: 600.0,
           top: 650.0,
           child: GestureDetector(
-            onTap: () {
-              setState(() {
-                selectedCartellText = "Hola soc cartell 2";
-              });
-            },
+            onTap: () => _showImage("Tema 2"),
             child: Image.asset(
               'assets/cartell2.png',
               width: 75.0,
@@ -98,11 +136,7 @@ class _MapScreenAlumnoState extends State<MapScreenAlumno> {
           left: 765.0,
           top: 583.0,
           child: GestureDetector(
-            onTap: () {
-              setState(() {
-                selectedCartellText = "Hola soc cartell 3";
-              });
-            },
+            onTap: () => _showImage("Tema 3"),
             child: Image.asset(
               'assets/cartell3.png',
               width: 75.0,
@@ -120,11 +154,7 @@ class _MapScreenAlumnoState extends State<MapScreenAlumno> {
           left: 740.0,
           top: 518.0,
           child: GestureDetector(
-            onTap: () {
-              setState(() {
-                selectedCartellText = "Hola soc cartell 4";
-              });
-            },
+            onTap: () => _showImage("Tema 4"),
             child: Image.asset(
               'assets/cartell4.png',
               width: 75.0,
@@ -142,11 +172,7 @@ class _MapScreenAlumnoState extends State<MapScreenAlumno> {
           left: 890.0,
           top: 560.0,
           child: GestureDetector(
-            onTap: () {
-              setState(() {
-                selectedCartellText = "Hola soc cartell 5";
-              });
-            },
+            onTap: () => _showImage("Tema 5"),
             child: Image.asset(
               'assets/cartell5.png',
               width: 75.0,
@@ -156,7 +182,6 @@ class _MapScreenAlumnoState extends State<MapScreenAlumno> {
         ),
       );
     }
-
     // Cartell 6
     if (estatTemes["Tema 6"] == false) {
       positionedCartells.add(
@@ -164,11 +189,7 @@ class _MapScreenAlumnoState extends State<MapScreenAlumno> {
           left: 600.0,
           top: 150.0,
           child: GestureDetector(
-            onTap: () {
-              setState(() {
-                selectedCartellText = "Hola soc cartell 6";
-              });
-            },
+            onTap: () => _showImage("Tema 6"),
             child: Image.asset(
               'assets/cartell6.png',
               width: 120.0,
@@ -184,13 +205,9 @@ class _MapScreenAlumnoState extends State<MapScreenAlumno> {
       positionedCartells.add(
         Positioned(
           left: 815.0,
-          top: 523.0,
+          top: 527.0,
           child: GestureDetector(
-            onTap: () {
-              setState(() {
-                selectedCartellText = "Hola soc cartell 7";
-              });
-            },
+            onTap: () => _showImage("Tema 7"),
             child: Image.asset(
               'assets/cartell7.png',
               width: 75.0,
@@ -208,15 +225,11 @@ class _MapScreenAlumnoState extends State<MapScreenAlumno> {
           left: 820.0,
           top: 400.0,
           child: GestureDetector(
-            onTap: () {
-              setState(() {
-                selectedCartellText = "Hola soc cartell 8";
-              });
-            },
+            onTap: () => _showImage("Tema 8"),
             child: Image.asset(
               'assets/cartell8.png',
-              width: 85.0,
-              height: 85.0,
+              width: 75.0,
+              height: 75.0,
             ),
           ),
         ),
@@ -230,11 +243,7 @@ class _MapScreenAlumnoState extends State<MapScreenAlumno> {
           left: 850.0,
           top: 670.0,
           child: GestureDetector(
-            onTap: () {
-              setState(() {
-                selectedCartellText = "Hola soc cartell 9";
-              });
-            },
+            onTap: () => _showImage("Tema 9"),
             child: Image.asset(
               'assets/cartell9.png',
               width: 120.0,
@@ -252,11 +261,7 @@ class _MapScreenAlumnoState extends State<MapScreenAlumno> {
           left: 610.0,
           top: 360.0,
           child: GestureDetector(
-            onTap: () {
-              setState(() {
-                selectedCartellText = "Hola soc cartell 10";
-              });
-            },
+            onTap: () => _showImage("Tema 10"),
             child: Image.asset(
               'assets/cartell10.png',
               width: 75.0,
@@ -272,56 +277,57 @@ class _MapScreenAlumnoState extends State<MapScreenAlumno> {
         title: Text("Mapa de l'Alumne"),
         backgroundColor: Colors.green,
       ),
-      backgroundColor: Color(0xFFF7F3DF), // Color de fons
+      backgroundColor: Color(0xFFF7F3DF),
       body: Stack(
         children: [
           // Posits ajustables
           Positioned(
-            left: -300, // Distància des de la part esquerra
-            top: 10, // Distància des de la part superior
+            left: -300,
+            top: 10,
             child: Image.asset(
               'assets/posits_alumnes.png',
-              width: 1000, // Amplada general dels pos-its
-              height: 1000, // Alçada general dels pos-its
+              width: 1000,
+              height: 1000,
             ),
           ),
           // Imatge del mapa ajustable
           Positioned(
-            left: 150, // Distància des de la part esquerra
-            top: -50, // Distància des de la part superior
+            left: 150,
+            top: -50,
             child: Image.asset(
               'assets/Mapa.png',
-              width: 1150, // Amplada general del mapa
-              height: 1150, // Alçada general del mapa
+              width: 1150,
+              height: 1150,
             ),
           ),
-          // Afegir els cartells ajustables
           ...positionedCartells,
-          // Mostrar el text del cartell seleccionat
-          if (selectedCartellText != null)
+          // Mostrar la imatge si està seleccionada
+          if (imageToShow != null)
             Positioned(
-              right: 20, // Posició a la dreta
-              top: 100, // Posició a la part superior
-              child: Container(
-                padding: EdgeInsets.all(16.0),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10.0),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 10.0,
-                      offset: Offset(0, 4),
-                    ),
-                  ],
+              right: 250,
+              top: 100,
+              child: GestureDetector(
+                onTap: _hideImage, // Tanca la imatge quan es toca
+                child: Image.asset(
+                  imageToShow!,
+                  width: 800,
+                  height: 800,
+                  fit: BoxFit.contain,
                 ),
-                child: Text(
-                  selectedCartellText!,
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.green[800],
-                  ),
+              ),
+            ),
+          // Mostrar la imatge de bloqueig/desbloqueig
+          if (bloqueigImatge != null)
+            Positioned(
+              right: 10,
+              top: 300,
+              child: GestureDetector(
+                onTap: _hideImage,
+                child: Image.asset(
+                  bloqueigImatge!,
+                  width: 400,
+                  height: 400,
+                  fit: BoxFit.contain,
                 ),
               ),
             ),

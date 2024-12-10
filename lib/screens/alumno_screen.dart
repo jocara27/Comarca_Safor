@@ -20,7 +20,10 @@ class _AlumnoScreenState extends State<AlumnoScreen> {
     Timer(Duration(seconds: 2), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => MapScreenAlumno()),
+        MaterialPageRoute(
+          builder: (context) =>
+              MapScreenAlumno(alumne: widget.name), // Passar el paràmetre
+        ),
       );
     });
   }
