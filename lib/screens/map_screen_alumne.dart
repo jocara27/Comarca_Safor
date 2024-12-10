@@ -182,18 +182,36 @@ class _MapScreenAlumnoState extends State<MapScreenAlumno> {
         ),
       );
     }
-    // Cartell 6
-    if (estatTemes["Tema 6"] == false) {
+    // Cartell 8
+    if (estatTemes["Tema 8"] == false) {
       positionedCartells.add(
         Positioned(
           left: 600.0,
           top: 150.0,
           child: GestureDetector(
+            onTap: () => _showImage("Tema 8"),
+            child: Image.asset(
+              'assets/cartell8.png',
+              width: 120.0,
+              height: 120.0,
+            ),
+          ),
+        ),
+      );
+    }
+
+    // Cartell 6
+    if (estatTemes["Tema 6"] == false) {
+      positionedCartells.add(
+        Positioned(
+          left: 815.0,
+          top: 527.0,
+          child: GestureDetector(
             onTap: () => _showImage("Tema 6"),
             child: Image.asset(
               'assets/cartell6.png',
-              width: 120.0,
-              height: 120.0,
+              width: 75.0,
+              height: 75.0,
             ),
           ),
         ),
@@ -204,30 +222,12 @@ class _MapScreenAlumnoState extends State<MapScreenAlumno> {
     if (estatTemes["Tema 7"] == false) {
       positionedCartells.add(
         Positioned(
-          left: 815.0,
-          top: 527.0,
+          left: 820.0,
+          top: 400.0,
           child: GestureDetector(
             onTap: () => _showImage("Tema 7"),
             child: Image.asset(
               'assets/cartell7.png',
-              width: 75.0,
-              height: 75.0,
-            ),
-          ),
-        ),
-      );
-    }
-
-    // Cartell 8
-    if (estatTemes["Tema 8"] == false) {
-      positionedCartells.add(
-        Positioned(
-          left: 820.0,
-          top: 400.0,
-          child: GestureDetector(
-            onTap: () => _showImage("Tema 8"),
-            child: Image.asset(
-              'assets/cartell8.png',
               width: 75.0,
               height: 75.0,
             ),
