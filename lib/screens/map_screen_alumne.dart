@@ -17,6 +17,20 @@ class _MapScreenAlumnoState extends State<MapScreenAlumno> {
   String? imageToShow; // Imatge de detall del tema seleccionat
   String? bloqueigImatge; // Imatge de bloqueig/desbloqueig
 
+  // Configuracions de posicionament i mida per a cada tema
+  final Map<String, Map<String, dynamic>> bloqueigConfiguracio = {
+    "Tema 1": {"left": 1350.0, "top": 130.0, "width": 780.0, "height": 780.0},
+    "Tema 2": {"left": 1350.0, "top": 130.0, "width": 780.0, "height": 780.0},
+    "Tema 3": {"left": 30.0, "top": 400.0, "width": 300.0, "height": 300.0},
+    "Tema 4": {"left": 70.0, "top": 250.0, "width": 450.0, "height": 450.0},
+    "Tema 5": {"left": 100.0, "top": 500.0, "width": 400.0, "height": 400.0},
+    "Tema 6": {"left": 1500.0, "top": 300.0, "width": 400.0, "height": 400.0},
+    "Tema 7": {"left": 80.0, "top": 220.0, "width": 340.0, "height": 340.0},
+    "Tema 8": {"left": 120.0, "top": 270.0, "width": 400.0, "height": 400.0},
+    "Tema 9": {"left": 1320.0, "top": 60.0, "width": 780.0, "height": 780.0},
+    "Tema 10": {"left": 1350.0, "top": 130.0, "width": 780.0, "height": 780.0},
+  };
+
   @override
   void initState() {
     super.initState();
@@ -67,9 +81,8 @@ class _MapScreenAlumnoState extends State<MapScreenAlumno> {
       }
 
       // Imatge de bloqueig o desbloqueig
-      bloqueigImatge = (estat == "No entregat")
-          ? "assets/Bloquejat_$tema.png"
-          : "assets/Desbloquejat_$tema.png";
+      bloqueigImatge =
+          (estat == "No entregat") ? "Bloquejat_$tema" : "Desbloquejat_$tema";
     });
   }
 
@@ -95,13 +108,14 @@ class _MapScreenAlumnoState extends State<MapScreenAlumno> {
 
     List<Widget> positionedCartells = [];
 
+    // Exemple de cartells
     if (estatTemes["Tema 1"] == false) {
       positionedCartells.add(
         Positioned(
           left: 730.0,
           top: 440.0,
           child: GestureDetector(
-            onTap: () => _showImage("Tema 1"), // Mostra la imatge
+            onTap: () => _showImage("Tema 1"),
             child: Image.asset(
               'assets/cartell1.png',
               width: 75.0,
@@ -111,7 +125,6 @@ class _MapScreenAlumnoState extends State<MapScreenAlumno> {
         ),
       );
     }
-
     if (estatTemes["Tema 2"] == false) {
       positionedCartells.add(
         Positioned(
@@ -307,7 +320,7 @@ class _MapScreenAlumnoState extends State<MapScreenAlumno> {
               right: 250,
               top: 100,
               child: GestureDetector(
-                onTap: _hideImage, // Tanca la imatge quan es toca
+                onTap: _hideImage,
                 child: Image.asset(
                   imageToShow!,
                   width: 800,
@@ -319,14 +332,18 @@ class _MapScreenAlumnoState extends State<MapScreenAlumno> {
           // Mostrar la imatge de bloqueig/desbloqueig
           if (bloqueigImatge != null)
             Positioned(
-              right: 10,
-              top: 300,
+              left: bloqueigConfiguracio[bloqueigImatge!.split('_').last]![
+                  "left"],
+              top:
+                  bloqueigConfiguracio[bloqueigImatge!.split('_').last]!["top"],
               child: GestureDetector(
                 onTap: _hideImage,
                 child: Image.asset(
-                  bloqueigImatge!,
-                  width: 400,
-                  height: 400,
+                  "assets/$bloqueigImatge.png",
+                  width: bloqueigConfiguracio[bloqueigImatge!.split('_').last]![
+                      "width"],
+                  height: bloqueigConfiguracio[
+                      bloqueigImatge!.split('_').last]!["height"],
                   fit: BoxFit.contain,
                 ),
               ),

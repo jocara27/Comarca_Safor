@@ -33,7 +33,7 @@ flutter:
     - assets/estat_alumnes.json
     - assets/estat_temes.json
     - assets/mapa.png
-    - assets/Logo_APP.png
+    - assets/Logo_APP.jpg
     - assets/posits_alumnes.png
     - assets/cartell1.png
     - assets/cartell2.png
@@ -55,6 +55,10 @@ flutter:
     - assets/Imatge_EntregatTema 6.png
     - assets/Imatge_No_EntregatTema 6.png
     - assets/Imatge_Entregat_TardTema 6.png
+    - assets/Desbloquejat_Tema 2.png
+    - assets/Desbloquejat_Tema 9.png
+    - assets/Imatge_Entregat_TardTema 9.png
+    - assets/Imatge_EntregatTema 9.png
 
 
 
