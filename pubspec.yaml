@@ -1,0 +1,116 @@
+name: login_app
+description: "A new Flutter project."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.5.3 <4.0.0"
+
+dependencies:
+  confetti: ^0.7.0
+  flutter:
+    sdk: flutter
+  provider: ^6.0.0
+  json_annotation: ^4.8.0
+  http: ^1.2.2
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/users.json
+    - assets/child_logo.png
+    - assets/professor_image.png
+    - assets/mapa_pobles.png
+    - assets/primer_trimestre.png
+    - assets/segon_trimestre.png
+    - assets/tercer_trimestre.png
+    - assets/estat_alumnes.json
+    - assets/estat_temes.json
+    - assets/mapa.png
+    - assets/Logo_APP.png
+    - assets/posits_alumnes.png
+    - assets/cartell1.png
+    - assets/cartell2.png
+    - assets/cartell3.png
+    - assets/cartell4.png
+    - assets/cartell5.png
+    - assets/cartell6.png
+    - assets/cartell7.png
+    - assets/cartell8.png
+    - assets/cartell9.png
+    - assets/cartell10.png
+
+    - assets/Bloquejat_Tema 1.png
+    - assets/Desbloquejat_Tema 1.png
+    - assets/Imatge_EntregatTema 1.png
+    - assets/Imatge_No_EntregatTema 1.png
+    - assets/Imatge_Entregat_TardTema 1.png
+    - assets/Moneda 1.png
+    - assets/Bloquejat_Tema 2.png
+    - assets/Desbloquejat_Tema 2.png
+    - assets/Imatge_EntregatTema 2.png
+    - assets/Imatge_No_EntregatTema 2.png
+    - assets/Imatge_Entregat_TardTema 2.png
+    - assets/Moneda 2.png
+    - assets/Bloquejat_Tema 3.png
+    - assets/Desbloquejat_Tema 3.png
+    - assets/Imatge_EntregatTema 3.png
+    - assets/Imatge_No_EntregatTema 3.png
+    - assets/Imatge_Entregat_TardTema 3.png
+    - assets/Moneda 3.png
+    - assets/Bloquejat_Tema 4.png
+    - assets/Desbloquejat_Tema 4.png
+    - assets/Imatge_EntregatTema 4.png
+    - assets/Imatge_No_EntregatTema 4.png
+    - assets/Imatge_Entregat_TardTema 4.png
+    - assets/Moneda 4.png
+    - assets/Bloquejat_Tema 5.png
+    - assets/Desbloquejat_Tema 5.png
+    - assets/Imatge_EntregatTema 5.png
+    - assets/Imatge_No_EntregatTema 5.png
+    - assets/Imatge_Entregat_TardTema 5.png
+    - assets/Moneda 5.png
+    - assets/Bloquejat_Tema 6.png
+    - assets/Desbloquejat_Tema 6.png
+    - assets/Imatge_EntregatTema 6.png
+    - assets/Imatge_No_EntregatTema 6.png
+    - assets/Imatge_Entregat_TardTema 6.png
+    - assets/Moneda 6.png
+    - assets/Bloquejat_Tema 7.png
+    - assets/Desbloquejat_Tema 7.png
+    - assets/Imatge_EntregatTema 7.png
+    - assets/Imatge_No_EntregatTema 7.png
+    - assets/Imatge_Entregat_TardTema 7.png
+    - assets/Moneda 7.png
+    - assets/Bloquejat_Tema 8.png
+    - assets/Desbloquejat_Tema 8.png
+    - assets/Imatge_EntregatTema 8.png
+    - assets/Imatge_No_EntregatTema 8.png
+    - assets/Imatge_Entregat_TardTema 8.png
+    - assets/Moneda 8.png
+    - assets/Bloquejat_Tema 9.png
+    - assets/Desbloquejat_Tema 9.png
+    - assets/Imatge_EntregatTema 9.png
+    - assets/Imatge_No_EntregatTema 9.png
+    - assets/Imatge_Entregat_TardTema 9.png
+    - assets/Moneda 9.png
+    - assets/Bloquejat_Tema 10.png
+    - assets/Desbloquejat_Tema 10.png
+    - assets/Imatge_EntregatTema 10.png
+    - assets/Imatge_No_EntregatTema 10.png
+    - assets/Imatge_Entregat_TardTema 10.png
+    - assets/Moneda 10.png
+
+
+
+
+    
+
+  
